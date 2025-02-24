@@ -36,8 +36,8 @@ MATCH_RESULTS_PATH = "C:\\Users\\Harleen\\Downloads\\New Folder\\match_results.x
 
 # **Load Excel File and Extract Images**
 def extract_images():
-    wb = xw.Book(EXCEL_FILE)
-    sheet = wb.sheets.active
+    wb = openpyxl.load_workbook(EXCEL_FILE)
+    sheet = wb.active
     # Delete the folder if it exists
     if os.path.exists(IMAGE_FOLDER):
         for file in os.listdir(IMAGE_FOLDER):
