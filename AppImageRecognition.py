@@ -5,9 +5,22 @@ Created on Fri Feb 21 12:37:57 2025
 @author: Harleen
 """
 
+import subprocess
+
+# Check installed packages
+installed_packages = subprocess.run(["pip", "list"], capture_output=True, text=True)
+print(installed_packages.stdout)
+
+# Try importing OpenCV
+try:
+    import cv2
+    print("OpenCV is installed, version:", cv2.__version__)
+except ImportError:
+    print("Error: OpenCV (cv2) is NOT installed!")
+    
 import streamlit as st
 import os
-import cv2
+#import cv2
 import numpy as np
 import pandas as pd
 import openpyxl
