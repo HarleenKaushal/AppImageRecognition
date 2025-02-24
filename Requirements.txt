@@ -1,9 +1,0 @@
-streamlit
-numpy
-pandas
-openpyxl
-Pillow
-xlwings
-matplotlib
-opencv-python-headless
-
