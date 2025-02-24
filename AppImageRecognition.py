@@ -35,23 +35,33 @@ from openpyxl import load_workbook
 #IMAGE_FOLDER = "C:\\Users\\Harleen\\Downloads\\New Folder\\extracted_images"
 #MATCH_RESULTS_PATH = "C:\\Users\\Harleen\\Downloads\\New Folder\\match_results.xlsx"
 
-EXCEL_FILE = "img1.xlsx"
+EXCEL_FILE = "img1.xlsm"
 IMAGE_FOLDER = "extracted_images"
 MATCH_RESULTS_PATH = "match_results.xlsx"
 
 # **Load Excel File and Extract Images**
 def extract_images():
-    wb = load_workbook(EXCEL_FILE, data_only=True)
-    sheet = wb.active
 
-    for img in sheet._images:  # Extract images from the Excel file
-        img_name = img.ref + ".png"
-        img_path = os.path.join(IMAGE_FOLDER, img_name)
-        
-        with open(img_path, "wb") as f:
-            f.write(img._data())  # Save image file
+    wb = xw.Book(EXCEL_FILE)  # Opens the workbook
+    sheet = wb.sheets.active
+    image_shapes = [(shape, shape.top) for shape in sheet.shapes if shape.api.Type == 13]
+    image_shapes.sort(key=lambda x: x[1])  # Sort images by Y-position
+    
+    # Extract Images in Correct Order
+    for index, (shape, _) in enumerate(image_shapes, start=0):
+        shape.api.Copy()  # Copy the image to clipboard
+        time.sleep(1)  # Allow clipboard processing
+    
+        img = ImageGrab.grabclipboard()  # Grab the image from clipboard
+        if img:
+            img_path = os.path.join(IMAGE_FOLDER, f"image_{index}_2.png")
+            img.save(img_path, "PNG")
 
     wb.close()
+
+
+
+
 
 # **Remove Background Function**
 def remove_background(img):
