@@ -25,6 +25,10 @@ MATCH_RESULTS_PATH = "C:\\Users\\Harleen\\Downloads\\New Folder\\match_results.x
 def extract_images():
     wb = xw.Book(EXCEL_FILE)
     sheet = wb.sheets.active
+    # Delete the folder if it exists
+    if os.path.exists(IMAGE_FOLDER):
+        for file in os.listdir(IMAGE_FOLDER):
+            os.remove(os.path.join(IMAGE_FOLDER, file))
     os.makedirs(IMAGE_FOLDER, exist_ok=True)
 
     image_shapes = [(shape, shape.top) for shape in sheet.shapes if shape.api.Type == 13]
