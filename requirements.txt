@@ -6,3 +6,4 @@ openpyxl
 streamlit
 pyxlsb
 xlwings
+matplotlib
