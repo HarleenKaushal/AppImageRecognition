@@ -30,9 +30,13 @@ from PIL import Image, ImageGrab
 import matplotlib.pyplot as plt
 
 # **Hardcoded Paths**
-EXCEL_FILE = "C:\\Users\\Harleen\\Downloads\\New Folder\\img1.xlsx"
-IMAGE_FOLDER = "C:\\Users\\Harleen\\Downloads\\New Folder\\extracted_images"
-MATCH_RESULTS_PATH = "C:\\Users\\Harleen\\Downloads\\New Folder\\match_results.xlsx"
+#EXCEL_FILE = "C:\\Users\\Harleen\\Downloads\\New Folder\\img1.xlsx"
+#IMAGE_FOLDER = "C:\\Users\\Harleen\\Downloads\\New Folder\\extracted_images"
+#MATCH_RESULTS_PATH = "C:\\Users\\Harleen\\Downloads\\New Folder\\match_results.xlsx"
+
+EXCEL_FILE = "img1.xlsx"
+IMAGE_FOLDER = "extracted_images"
+MATCH_RESULTS_PATH = "match_results.xlsx"
 
 # **Load Excel File and Extract Images**
 def extract_images():
