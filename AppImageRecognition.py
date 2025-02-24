@@ -28,6 +28,7 @@ import xlwings as xw
 import time
 from PIL import Image, ImageGrab
 import matplotlib.pyplot as plt
+from openpyxl import load_workbook
 
 # **Hardcoded Paths**
 #EXCEL_FILE = "C:\\Users\\Harleen\\Downloads\\New Folder\\img1.xlsx"
@@ -40,23 +41,16 @@ MATCH_RESULTS_PATH = "match_results.xlsx"
 
 # **Load Excel File and Extract Images**
 def extract_images():
-    wb = openpyxl.load_workbook(EXCEL_FILE)
+    wb = load_workbook(EXCEL_FILE, data_only=True)
     sheet = wb.active
-    # Delete the folder if it exists
-    if os.path.exists(IMAGE_FOLDER):
-        for file in os.listdir(IMAGE_FOLDER):
-            os.remove(os.path.join(IMAGE_FOLDER, file))
-    os.makedirs(IMAGE_FOLDER, exist_ok=True)
 
-    image_shapes = [(shape, shape.top) for shape in sheet.shapes if shape.api.Type == 13]
-    image_shapes.sort(key=lambda x: x[1])
+    for img in sheet._images:  # Extract images from the Excel file
+        img_name = img.ref + ".png"
+        img_path = os.path.join(IMAGE_FOLDER, img_name)
+        
+        with open(img_path, "wb") as f:
+            f.write(img._data())  # Save image file
 
-    for index, (shape, _) in enumerate(image_shapes):
-        shape.api.Copy()
-        time.sleep(1)  # Allow clipboard processing
-        img = ImageGrab.grabclipboard()
-        if img:
-            img.save(os.path.join(IMAGE_FOLDER, f"image_{index}_2.png"), "PNG")
     wb.close()
 
 # **Remove Background Function**
