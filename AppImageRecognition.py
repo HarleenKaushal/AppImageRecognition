@@ -55,6 +55,8 @@ def remove_background(img):
 # **Match Target Image with Extracted Images**
 def match_images(target_img):
     df = pd.read_excel(EXCEL_FILE)
+    #target_img_path = "C:\\Users\\Harleen\\Downloads\\img1.jpg"
+    #target_img = cv2.imread(target_img_path)
     target_img = remove_background(target_img)
     target_img = cv2.resize(target_img, (300, 300))
     target_img_gray = cv2.cvtColor(target_img, cv2.COLOR_BGR2GRAY)
