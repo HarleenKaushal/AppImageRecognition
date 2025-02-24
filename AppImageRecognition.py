@@ -41,7 +41,7 @@ MATCH_RESULTS_PATH = "match_results.xlsx"
 
 # **Load Excel File and Extract Images**
 def extract_images():
-
+    app = xw.App(visible=False)
     wb = xw.Book(EXCEL_FILE)  # Opens the workbook
     sheet = wb.sheets.active
     image_shapes = [(shape, shape.top) for shape in sheet.shapes if shape.api.Type == 13]
@@ -58,7 +58,7 @@ def extract_images():
             img.save(img_path, "PNG")
 
     wb.close()
-
+    app.quit()
 
 
 
