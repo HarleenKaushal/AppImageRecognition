@@ -1,7 +1,8 @@
-opencv-python-headless
 numpy
 pandas
 openpyxl
 Pillow
 xlwings
 matplotlib
+opencv-python-headless
+
