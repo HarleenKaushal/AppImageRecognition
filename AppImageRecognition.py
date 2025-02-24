@@ -115,7 +115,7 @@ def match_images(target_img):
 
     return top_matches, match_results
 
-
+UPLOAD_FOLDER = "uploads"
 
 # **Streamlit UI**
 st.title("🔍 Image Matching App")
@@ -124,7 +124,14 @@ st.write("Upload an image to find the best match from stored data.")
 uploaded_file = st.file_uploader("Upload Target Image", type=["jpg", "png", "jpeg"])
 
 if uploaded_file is not None:
-    target_img = Image.open(uploaded_file)
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    
+    # Save the uploaded file temporarily
+    file_path = os.path.join(UPLOAD_FOLDER, uploaded_file.name)
+    with open(file_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+        
+    target_img = Image.open(file_path)
     target_img = np.array(target_img)
     st.image(target_img, caption="Uploaded Image", use_column_width=True)
 
