@@ -5,6 +5,7 @@ Created on Tue Feb 25 11:58:01 2025
 @author: Harleen
 """
 
+# -*- coding: utf-8 -*-
 import streamlit as st
 import pandas as pd
 import cv2
@@ -160,4 +161,11 @@ def extract_row_number(filename, df_length):
         parts = filename.split("_")
         if len(parts) > 1:
             row_number = int(parts[1])
-            if 0
+            if 0 <= row_number < df_length:
+                return row_number
+    except ValueError:
+        pass
+    return None
+
+if __name__ == "__main__":
+    main()
